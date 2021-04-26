@@ -31,15 +31,15 @@ public class ProVersionController implements ProductController {
         double totalPrice = 0;
         for (int i = 0; i < 5; i++) {
             Product product = productService.getProductList().get(i);
-            double productPrice = product.getProductPrice();
-            double productPriceWithVAT = productService.round((productPrice * VAT) + productPrice);
-            double discountValue = productService.round(productPriceWithVAT * discount);
-            double productPriceWithDiscount = productPriceWithVAT - discountValue;
+            double productPriceWithDiscount = productService.getPriceWithDiscount(product);
             product.setProductPrice(productService.round(productPriceWithDiscount));
             System.out.println(product);
             totalPrice += productPriceWithDiscount;
             totalPrice = productService.round(totalPrice);
         }
         System.out.println("Total price equals: " + totalPrice);
+        System.out.println();
+        productService.addProduct();
+        System.out.println("Amount to pay with added VAT and after discount: " + productService.addDiscounttoTotalValueOfShopping());
     }
 }

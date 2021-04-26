@@ -29,14 +29,16 @@ public class PlusVersionController implements ProductController {
         double totalPrice = 0;
         for (int i = 0; i < 5; i++) {
             Product product = productService.getProductList().get(i);
-            double productPrice = product.getProductPrice();
-            double productPriceWithVAT = productService.round((productPrice * VAT) + productPrice);
+            double productPriceWithVAT = productService.getPriceWithVAT(product);
             product.setProductPrice(productPriceWithVAT);
             System.out.println(product);
             totalPrice += productPriceWithVAT;
             totalPrice = productService.round(totalPrice);
         }
         System.out.println("Total price equals: " + totalPrice);
+        System.out.println();
+        productService.addProduct();
+        System.out.println("Amount to pay with added VAT: " + productService.addVATToTotalValueOfShopping());
     }
 
 }

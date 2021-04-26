@@ -29,6 +29,9 @@ public class StartVersionController implements ProductController {
             totalPrice += product.getProductPrice();
         }
         System.out.println("Total price equals: " + totalPrice);
+        System.out.println();
+        productService.addProduct();
+        System.out.println("Amount to pay: " + productService.getCartValue());
     }
 
 }
