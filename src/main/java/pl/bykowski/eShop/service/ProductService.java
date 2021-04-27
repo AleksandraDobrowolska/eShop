@@ -1,8 +1,6 @@
 package pl.bykowski.eShop.service;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import pl.bykowski.eShop.model.Product;
 
@@ -19,6 +17,7 @@ public class ProductService {
     List<Product> productList = new ArrayList<>();
 
     Product product = new Product();
+    Random random = new Random();
 
     @Value("${price.VAT}")
     private double VAT;
@@ -39,26 +38,23 @@ public class ProductService {
     }
 
     private int priceGenerator() {
-        Random random = new Random();
         return random.nextInt(250) + 50;
     }
 
     public double getPriceWithVAT(Product product) {
         double productPrice = product.getProductPrice();
-        double productPriceWithVAT = round((productPrice * VAT) + productPrice);
-        return productPriceWithVAT;
+        return round((productPrice * VAT) + productPrice);
     }
 
     public double getPriceWithDiscount(Product product) {
         double productPriceWithVAT = getPriceWithVAT(product);
         double discountValue = round(productPriceWithVAT * discount);
-        double productPriceWithDiscount = productPriceWithVAT - discountValue;
-        return productPriceWithDiscount;
+        return productPriceWithVAT - discountValue;
     }
 
     public double round(double value) {
         int precision = 2;
-        BigDecimal bigDecimal = new BigDecimal(value);
+        BigDecimal bigDecimal = BigDecimal.valueOf(value);
         bigDecimal = bigDecimal.setScale(precision, RoundingMode.HALF_UP);
         return bigDecimal.doubleValue();
     }

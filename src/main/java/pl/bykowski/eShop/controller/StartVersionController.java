@@ -12,7 +12,7 @@ import pl.bykowski.eShop.service.ProductService;
 @Profile("START")
 public class StartVersionController implements ProductController {
 
-    private ProductService productService;
+    private final ProductService productService;
 
     @Autowired
     public StartVersionController(ProductService productService) {

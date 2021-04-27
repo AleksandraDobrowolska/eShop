@@ -13,7 +13,7 @@ import pl.bykowski.eShop.service.ProductService;
 @Profile("PRO")
 public class ProVersionController implements ProductController {
 
-    private ProductService productService;
+    private final ProductService productService;
 
     @Value("${price.VAT}")
     private double VAT;
